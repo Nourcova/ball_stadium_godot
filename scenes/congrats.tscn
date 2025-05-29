@@ -1,0 +1,168 @@
+[gd_scene load_steps=20 format=3 uid="uid://bsbnvl1wq0ufa"]
+
+[ext_resource type="Script" uid="uid://dpxfvnx2mv2g2" path="res://scripts/congrats.gd" id="1_0tx4p"]
+[ext_resource type="Texture2D" uid="uid://bxbwimj6g8vkv" path="res://textures/congrats.png" id="1_qs450"]
+[ext_resource type="FontFile" uid="uid://x3uus5rs3aq2" path="res://kenney_ui-pack/Font/Kenney Future Narrow.ttf" id="2_wd5u8"]
+[ext_resource type="Texture2D" uid="uid://c8knp1p5rafu3" path="res://kenney_ui-pack/Vector/Yellow/button_rectangle_depth_border.svg" id="3_hm4ih"]
+[ext_resource type="FontFile" uid="uid://chrk75xkkbvs4" path="res://kenney_ui-pack/Font/Kenney Future.ttf" id="4_3gea3"]
+[ext_resource type="Texture2D" uid="uid://dnu6uvhkpixq5" path="res://kenney_ui-pack/Vector/Red/button_rectangle_depth_border.svg" id="5_3gea3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hm4ih"]
+font = ExtResource("2_wd5u8")
+font_size = 46
+font_color = Color(0.0364, 0.20692, 0.28, 1)
+outline_size = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0tx4p"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n1boi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5u0pt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j4prs"]
+
+[sub_resource type="GDScript" id="GDScript_ky00d"]
+script/source = "extends Button
+
+func _on_pressed():
+	PlayerStats.lives = 3
+	EventBus.start_game.emit()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_u4r4b"]
+font = ExtResource("4_3gea3")
+font_size = 24
+font_color = Color(0.2, 0.102, 0.102, 1)
+outline_size = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ky00d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u4r4b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o74jf"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_84c07"]
+
+[sub_resource type="GDScript" id="GDScript_fb5mf"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_1oa3h"]
+font = ExtResource("4_3gea3")
+font_size = 24
+font_color = Color(0.2, 0.102, 0.102, 1)
+outline_size = 10
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_0tx4p")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Congrats" type="Sprite2D" parent="ColorRect"]
+position = Vector2(576, 324)
+scale = Vector2(1.5, 0.84375)
+texture = ExtResource("1_qs450")
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 436.0
+offset_top = 56.0
+offset_right = 722.0
+offset_bottom = 109.0
+text = "You Won!!"
+label_settings = SubResource("LabelSettings_hm4ih")
+
+[node name="Rematch" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.514
+anchor_top = 0.572
+anchor_right = 0.514
+anchor_bottom = 0.572
+offset_left = -133.128
+offset_top = -199.656
+offset_right = 107.872
+offset_bottom = -117.656
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_0tx4p")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_n1boi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_5u0pt")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_j4prs")
+script = SubResource("GDScript_ky00d")
+
+[node name="ButtonRectangleDepthBorder" type="Sprite2D" parent="ColorRect/Rematch"]
+position = Vector2(121, 42)
+scale = Vector2(1.28125, 1.28125)
+texture = ExtResource("3_hm4ih")
+
+[node name="Label" type="Label" parent="ColorRect/Rematch"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49
+anchor_top = 0.457
+anchor_right = 0.49
+anchor_bottom = 0.457
+offset_left = -72.09
+offset_top = -13.474
+offset_right = 73.91
+offset_bottom = 13.526
+text = "Rematch"
+label_settings = SubResource("LabelSettings_u4r4b")
+
+[node name="Exit" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.501
+anchor_top = 0.643
+anchor_right = 0.501
+anchor_bottom = 0.643
+offset_left = -118.152
+offset_top = -113.664
+offset_right = 120.848
+offset_bottom = -32.664
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_ky00d")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_u4r4b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_o74jf")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_84c07")
+script = SubResource("GDScript_fb5mf")
+
+[node name="ButtonRectangleDepthBorder2" type="Sprite2D" parent="ColorRect/Exit"]
+position = Vector2(119.5, 40.5)
+scale = Vector2(1.26562, 1.26562)
+texture = ExtResource("5_3gea3")
+
+[node name="Label" type="Label" parent="ColorRect/Exit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.506
+anchor_top = 2.348
+anchor_right = 0.506
+anchor_bottom = 2.348
+offset_left = -73.934
+offset_top = -166.188
+offset_right = 72.066
+offset_bottom = -139.188
+text = "Exit"
+label_settings = SubResource("LabelSettings_1oa3h")
+horizontal_alignment = 1

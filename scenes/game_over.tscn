@@ -1,0 +1,171 @@
+[gd_scene load_steps=20 format=3 uid="uid://b1gsto8wu2iaw"]
+
+[ext_resource type="Script" uid="uid://cjr3n37t8srg0" path="res://scripts/game_over.gd" id="1_2jtsn"]
+[ext_resource type="Texture2D" uid="uid://ddkr3hqet12id" path="res://textures/game_over_image.png" id="1_xeevv"]
+[ext_resource type="FontFile" uid="uid://x3uus5rs3aq2" path="res://kenney_ui-pack/Font/Kenney Future Narrow.ttf" id="2_wqhvx"]
+[ext_resource type="Texture2D" uid="uid://c8knp1p5rafu3" path="res://kenney_ui-pack/Vector/Yellow/button_rectangle_depth_border.svg" id="3_tbwuq"]
+[ext_resource type="FontFile" uid="uid://chrk75xkkbvs4" path="res://kenney_ui-pack/Font/Kenney Future.ttf" id="4_racf3"]
+[ext_resource type="AudioStream" uid="uid://s584wmkmo574" path="res://assets/aww.mp3" id="6_v3hpu"]
+[ext_resource type="Texture2D" uid="uid://dnu6uvhkpixq5" path="res://kenney_ui-pack/Vector/Red/button_rectangle_depth_border.svg" id="7_irg28"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tbwuq"]
+font = ExtResource("2_wqhvx")
+font_size = 32
+font_color = Color(0, 0.23454, 0.313974, 1)
+outline_size = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbwuq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_racf3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7m3ot"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v3hpu"]
+
+[sub_resource type="GDScript" id="GDScript_irg28"]
+script/source = "extends Button
+
+func _on_pressed():
+	PlayerStats.lives = 3
+	EventBus.start_game.emit()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_7m3ot"]
+font = ExtResource("4_racf3")
+font_size = 24
+font_color = Color(0.2, 0.102, 0.102, 1)
+outline_size = 10
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2jtsn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8bugq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wawo4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_56v3a"]
+
+[sub_resource type="GDScript" id="GDScript_2jtsn"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2jtsn")
+
+[node name="game_over_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_v3hpu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GameOverImage" type="Sprite2D" parent="ColorRect"]
+position = Vector2(576, 325.5)
+scale = Vector2(1.5, 0.847656)
+texture = ExtResource("1_xeevv")
+
+[node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 335.0
+offset_top = 67.0
+offset_right = 827.0
+offset_bottom = 142.0
+text = "Game Over
+Better Luck Next Time"
+label_settings = SubResource("LabelSettings_tbwuq")
+horizontal_alignment = 1
+
+[node name="Rematch" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.514
+anchor_top = 0.572
+anchor_right = 0.514
+anchor_bottom = 0.572
+offset_left = -136.128
+offset_top = -149.656
+offset_right = 104.872
+offset_bottom = -67.656
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_tbwuq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_racf3")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7m3ot")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_v3hpu")
+script = SubResource("GDScript_irg28")
+
+[node name="ButtonRectangleDepthBorder" type="Sprite2D" parent="ColorRect/Rematch"]
+position = Vector2(121, 42)
+scale = Vector2(1.28125, 1.28125)
+texture = ExtResource("3_tbwuq")
+
+[node name="Label" type="Label" parent="ColorRect/Rematch"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.49
+anchor_top = 0.457
+anchor_right = 0.49
+anchor_bottom = 0.457
+offset_left = -72.09
+offset_top = -13.474
+offset_right = 73.91
+offset_bottom = 13.526
+text = "Rematch"
+label_settings = SubResource("LabelSettings_7m3ot")
+
+[node name="Exit" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.501
+anchor_top = 0.643
+anchor_right = 0.501
+anchor_bottom = 0.643
+offset_left = -119.152
+offset_top = -40.664
+offset_right = 119.848
+offset_bottom = 40.336
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_2jtsn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_8bugq")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_wawo4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_56v3a")
+script = SubResource("GDScript_2jtsn")
+
+[node name="ButtonRectangleDepthBorder2" type="Sprite2D" parent="ColorRect/Exit"]
+position = Vector2(119.5, 40.5)
+scale = Vector2(1.26562, 1.26562)
+texture = ExtResource("7_irg28")
+
+[node name="Label" type="Label" parent="ColorRect/Exit"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.506
+anchor_top = 2.348
+anchor_right = 0.506
+anchor_bottom = 2.348
+offset_left = -73.934
+offset_top = -166.188
+offset_right = 72.066
+offset_bottom = -139.188
+text = "Exit"
+label_settings = SubResource("LabelSettings_7m3ot")
+horizontal_alignment = 1
+
+[connection signal="pressed" from="ColorRect/Rematch" to="." method="_on_rematch_pressed"]
+[connection signal="pressed" from="ColorRect/Exit" to="." method="_on_exit_pressed"]

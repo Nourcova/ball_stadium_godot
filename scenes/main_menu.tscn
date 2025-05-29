@@ -1,0 +1,85 @@
+[gd_scene load_steps=12 format=3 uid="uid://bfxgwy42qastb"]
+
+[ext_resource type="Script" uid="uid://l1muy5sqewq0" path="res://scripts/main_menu.gd" id="1_bqqt6"]
+[ext_resource type="Script" uid="uid://bo3m1r5hyyok3" path="res://scenes/start_button.gd" id="1_l6cm7"]
+[ext_resource type="AudioStream" uid="uid://cpsvy345ajwxw" path="res://assets/Adrenaline(chosic.com).mp3" id="2_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://d1eo3mkn2oeby" path="res://textures/BG.png" id="2_rtw2f"]
+[ext_resource type="Texture2D" uid="uid://b8in71pfrctcn" path="res://kenney_ui-pack/Vector/Green/button_rectangle_depth_border.svg" id="4_8ln24"]
+[ext_resource type="FontFile" uid="uid://x3uus5rs3aq2" path="res://kenney_ui-pack/Font/Kenney Future Narrow.ttf" id="4_rtw2f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_oa1go"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tbmy8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rtw2f"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ln24"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jk1qb"]
+font = ExtResource("4_rtw2f")
+font_size = 25
+font_color = Color(6.59391e-06, 0.790952, 0.437996, 1)
+outline_size = 7
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bqqt6")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bg" type="Sprite2D" parent="ColorRect"]
+position = Vector2(576, 324)
+scale = Vector2(2.25, 1.26562)
+texture = ExtResource("2_rtw2f")
+
+[node name="Button" type="Button" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.504
+anchor_top = 0.551
+anchor_right = 0.504
+anchor_bottom = 0.551
+offset_left = -95.608
+offset_top = -32.048
+offset_right = 95.392
+offset_bottom = 31.952
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_oa1go")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_tbmy8")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_rtw2f")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_8ln24")
+script = ExtResource("1_l6cm7")
+
+[node name="ButtonRectangleDepthBorder" type="Sprite2D" parent="ColorRect/Button"]
+position = Vector2(98, 30)
+texture = ExtResource("4_8ln24")
+
+[node name="Label" type="Label" parent="ColorRect/Button"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.5
+offset_top = -17.0
+offset_right = 49.5
+offset_bottom = 12.0
+text = "Play"
+label_settings = SubResource("LabelSettings_jk1qb")
+horizontal_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ekxnf")
+
+[connection signal="pressed" from="ColorRect/Button" to="ColorRect/Button" method="_on_pressed"]

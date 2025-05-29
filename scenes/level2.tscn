@@ -1,0 +1,88 @@
+[gd_scene load_steps=15 format=3 uid="uid://bxyohdguoinve"]
+
+[ext_resource type="PackedScene" uid="uid://pfich508qyam" path="res://scenes/stadium.tscn" id="1_if4l3"]
+[ext_resource type="Texture2D" uid="uid://p7s8c5rn88ao" path="res://textures/basketball_court_img.jpg" id="2_4038r"]
+[ext_resource type="PackedScene" uid="uid://5tcx7xall5f1" path="res://scenes/ball.tscn" id="3_4038r"]
+[ext_resource type="PackedScene" uid="uid://dc880t1d06orh" path="res://scenes/wall.tscn" id="4_6ep0u"]
+[ext_resource type="Texture2D" uid="uid://dr6krnuirtng0" path="res://textures/basketball_img.png" id="4_alqfr"]
+[ext_resource type="Script" uid="uid://b1kdc56vq7kr5" path="res://scripts/next_level.gd" id="4_hrcei"]
+[ext_resource type="Script" uid="uid://eqj6al3h0asu" path="res://scripts/moving_wall.gd" id="5_6ep0u"]
+[ext_resource type="ArrayMesh" uid="uid://bvfcp5p5gjde" path="res://scenes/Basket_hoop.obj" id="5_yqkch"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4038r"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_2k3dv"]
+sky_material = SubResource("ProceduralSkyMaterial_4038r")
+
+[sub_resource type="Environment" id="Environment_alqfr"]
+background_mode = 2
+sky = SubResource("Sky_2k3dv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2k3dv"]
+albedo_texture = ExtResource("2_4038r")
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hrcei"]
+size = Vector3(2, 4, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ep0u"]
+albedo_texture = ExtResource("4_alqfr")
+
+[node name="Level2" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_alqfr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.057174, 0.601087, -0.797136, 0.0586703, 0.799085, 0.598348, 0.996639, -0.0125582, -0.0809529, -7.73979, 5.15687, -0.872796)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Stadium" parent="." instance=ExtResource("1_if4l3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0.082)
+
+[node name="MeshInstance3D" parent="Stadium" index="0"]
+material_override = SubResource("StandardMaterial3D_2k3dv")
+
+[node name="BasketHoop" type="MeshInstance3D" parent="Stadium"]
+transform = Transform3D(0.0555078, 0, -0.998458, 0, 1, 0, 0.998458, 0, 0.0555078, -5.70744, 0.27138, -0.392611)
+mesh = ExtResource("5_yqkch")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="Stadium/BasketHoop"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0299231, 2.5498, -0.538249)
+script = ExtResource("4_hrcei")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/BasketHoop/Area3D"]
+shape = SubResource("BoxShape3D_hrcei")
+
+[node name="Wall_1" parent="Stadium" instance=ExtResource("4_6ep0u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.156124, 0.75, -2.93405)
+script = ExtResource("5_6ep0u")
+
+[node name="Wall_2" parent="Stadium" instance=ExtResource("4_6ep0u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.96019, 0.75, 1.20058)
+script = ExtResource("5_6ep0u")
+
+[node name="Ball" parent="." instance=ExtResource("3_4038r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.556543, 0.75, 4.42629)
+
+[node name="BallCollision" parent="Ball" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27513, 0)
+
+[node name="BallMesh" parent="Ball" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27367, 0)
+material_override = SubResource("StandardMaterial3D_6ep0u")
+
+[connection signal="body_entered" from="Stadium/BasketHoop/Area3D" to="Stadium/BasketHoop/Area3D" method="_on_body_entered"]
+
+[editable path="Stadium"]
+[editable path="Ball"]

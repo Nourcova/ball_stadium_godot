@@ -1,0 +1,89 @@
+[gd_scene load_steps=15 format=3 uid="uid://cxnbn10hqrnp3"]
+
+[ext_resource type="PackedScene" uid="uid://pfich508qyam" path="res://scenes/stadium.tscn" id="2_dwgg1"]
+[ext_resource type="Texture2D" uid="uid://w33ylvmoimgj" path="res://textures/football_stadium_img.jpg" id="2_ejswk"]
+[ext_resource type="ArrayMesh" uid="uid://bd2rx10xsfkyb" path="res://scenes/soccer_net.obj" id="3_dwgg1"]
+[ext_resource type="PackedScene" uid="uid://dc880t1d06orh" path="res://scenes/wall.tscn" id="3_m7ahb"]
+[ext_resource type="PackedScene" uid="uid://5tcx7xall5f1" path="res://scenes/ball.tscn" id="3_ru4tf"]
+[ext_resource type="Script" uid="uid://b1kdc56vq7kr5" path="res://scripts/next_level.gd" id="4_ru4tf"]
+[ext_resource type="Texture2D" uid="uid://bvdqti7mcq1wd" path="res://textures/soccer_texture_img.png" id="7_bbk5w"]
+
+[sub_resource type="GDScript" id="GDScript_conm7"]
+script/source = "extends Node3D
+
+
+# Called when the node enters the scene tree for the first time.
+"
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lgp48"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_jwv3a"]
+sky_material = SubResource("ProceduralSkyMaterial_lgp48")
+
+[sub_resource type="Environment" id="Environment_dopym"]
+background_mode = 2
+sky = SubResource("Sky_jwv3a")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_conm7"]
+albedo_texture = ExtResource("2_ejswk")
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dwgg1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3jkd"]
+albedo_texture = ExtResource("7_bbk5w")
+
+[node name="Level1" type="Node3D"]
+script = SubResource("GDScript_conm7")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.057174, 0.601087, -0.797136, 0.0586703, 0.799085, 0.598348, 0.996639, -0.0125582, -0.0809529, -7.73979, 5.15687, -0.872796)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dopym")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 3.9763, 0)
+shadow_enabled = true
+
+[node name="Stadium" parent="." instance=ExtResource("2_dwgg1")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0.081908)
+
+[node name="MeshInstance3D" parent="Stadium" index="0"]
+material_override = SubResource("StandardMaterial3D_conm7")
+
+[node name="StaticBody3D" parent="Stadium" instance=ExtResource("3_m7ahb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.25452, 0.75, 1.95735)
+
+[node name="StaticBody3D2" parent="Stadium" instance=ExtResource("3_m7ahb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.36011, 0.75, 1.52541)
+
+[node name="StaticBody3D3" parent="Stadium" instance=ExtResource("3_m7ahb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.248705, 0.75, -2.60638)
+
+[node name="SoccerNet" type="MeshInstance3D" parent="Stadium"]
+transform = Transform3D(0.999997, 0, 0.00256562, 0, 1, 0, -0.00256562, 0, 0.999997, 6.50472, 0.25, 0.421459)
+mesh = ExtResource("3_dwgg1")
+
+[node name="Area3D" type="Area3D" parent="Stadium/SoccerNet"]
+script = ExtResource("4_ru4tf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Stadium/SoccerNet/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1.64799, 0, 0, 0, 2.61554, 0, 0.752912, 0)
+shape = SubResource("BoxShape3D_dwgg1")
+
+[node name="Ball" parent="." instance=ExtResource("3_ru4tf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.68286, 6.55608)
+
+[node name="BallMesh" parent="Ball" index="1"]
+material_override = SubResource("StandardMaterial3D_d3jkd")
+
+[connection signal="body_entered" from="Stadium/SoccerNet/Area3D" to="Stadium/SoccerNet/Area3D" method="_on_body_entered"]
+
+[editable path="Stadium"]
+[editable path="Ball"]

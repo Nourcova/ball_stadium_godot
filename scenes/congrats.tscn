@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bsbnvl1wq0ufa"]
+[gd_scene load_steps=21 format=3 uid="uid://bsbnvl1wq0ufa"]
 
 [ext_resource type="Script" uid="uid://dpxfvnx2mv2g2" path="res://scripts/congrats.gd" id="1_0tx4p"]
 [ext_resource type="Texture2D" uid="uid://bxbwimj6g8vkv" path="res://textures/congrats.png" id="1_qs450"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c8knp1p5rafu3" path="res://kenney_ui-pack/Vector/Yellow/button_rectangle_depth_border.svg" id="3_hm4ih"]
 [ext_resource type="FontFile" uid="uid://chrk75xkkbvs4" path="res://kenney_ui-pack/Font/Kenney Future.ttf" id="4_3gea3"]
 [ext_resource type="Texture2D" uid="uid://dnu6uvhkpixq5" path="res://kenney_ui-pack/Vector/Red/button_rectangle_depth_border.svg" id="5_3gea3"]
+[ext_resource type="AudioStream" uid="uid://dfebijf3022yq" path="res://assets/congrats.mp3" id="7_n1boi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hm4ih"]
 font = ExtResource("2_wd5u8")
@@ -166,3 +167,9 @@ offset_bottom = -139.188
 text = "Exit"
 label_settings = SubResource("LabelSettings_1oa3h")
 horizontal_alignment = 1
+
+[node name="Congrats_audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_n1boi")
+
+[connection signal="pressed" from="ColorRect/Rematch" to="." method="_on_rematch_pressed"]
+[connection signal="pressed" from="ColorRect/Exit" to="." method="_on_exit_pressed"]

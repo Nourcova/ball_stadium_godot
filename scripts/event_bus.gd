@@ -41,7 +41,8 @@ func go_to_next_level():
 		net_in.play()
 		get_tree().change_scene_to_file.bind(levels[current_level]).call_deferred()
 	else:
-		get_tree().change_scene_to_file.bind("res://scenes/game_over.tscn").call_deferred()
+		crowd_player.stop()
+		get_tree().change_scene_to_file.bind("res://scenes/congrats.tscn").call_deferred()
 
 func on_game_over():
 	crowd_player.stop()
